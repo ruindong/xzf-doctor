@@ -1,0 +1,11 @@
+<template name="addmore">
+    <view class="box-cent h-80 bg-c-f3 f-15 c-a4">
+        <block wx:if="{{lowerFooter==true}}">
+            <image class="ma-lr-20" style="width:30rpx;height:30rpx;" src="https://xcx.xzfyy.com/weixin/icon/loading.gif"></image>
+            <view>正在努力加载</view>
+        </block>
+        <block wx:else="{{lowerFooter==false}}">
+            <view>更多精彩请到美丽分享查阅</view>
+        </block>
+    </view>
+</template>

@@ -1,0 +1,112 @@
+<!--pages/index/anli/detail/detail.wxml-->
+<import src="../../../../wxParse/wxParse.wxml"/> 
+<import src="../../../../template/addmore.wxml" />
+<!--<scroll-view scroll-y="true" style="width:100%;height:{{screenHeight}}px" bindscrolltoupper="scrolltoupper" bindscrolltolower="addMoreComment">-->
+    <view class="bg-c-ff">
+    <view class="w-690">
+        <view class="box-slide bor-b-ec" style="height:180rpx;">
+            <view style="width:510rpx;" class="p-r-30 f-18 c-333 f-w bor-r-ec">{{anliResult.title}}</view>
+            <view wx:if="{{imgLove==true}}" bindtap="lovePost">
+                <image class="m-l-30" style="width:120rpx;height:52rpx;" src="{{imghost}}img-love.png"></image>
+            </view>
+            <view wx:else bindtap="lovePost">
+                <image class="m-l-30" style="width:120rpx;height:52rpx;" src="{{imghost}}img-loved.png"></image>
+            </view>
+        </view>
+        <view class="box-left" style="height:80rpx;">
+            <view wx:for="{{anliResult.label_name}}" wx:key="" class=" h-40 p-lr-20 t-al bg-c-f3 bo-ra-20 f-13 c-4e m-r-30">{{item}}                 </view>
+        </view>
+    </view>
+    <view class="line-bar"></view>
+    <view class="w-690">
+        <view class="f-15 c-4e lih-22 m-tb-30">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+        </view>
+        <!--商品-->
+        <block wx:if="{{OneProduct!=''}}">
+            <navigator url="/pages/benefit/goods-detail/goods-detail?productId={{OneProduct.id}}" hover-class="none">
+                <view class="box-center bg-c-f3" style="height:202rpx">
+                    <image style="width:170rpx;height:170rpx;" src="{{OneProduct.img_url}}"></image>
+                    <view class="" style="width:460rpx;">
+                        <view class="f-16 c-333 h-67">{{OneProduct.product_name}}</view>
+                        <view class="f-14 c-a4 h-67">厦门修志夫整形美容医院</view>
+                        <view class="box-slide h-67">
+                            <view>
+                                <text class="f-16 c-ff523c">￥{{OneProduct.prefer_price}}</text>
+                                <text class="f-13 c-a4 text-d">￥{{OneProduct.price}}</text>
+                            </view>
+                            <image style="width:124rpx;height:46rpx;" src="{{imghost}}order.png"></image>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </block>
+        <view class="h-80 f-13 c-a4">发布于：{{anliResult.update_date}}</view>
+    </view>
+    <!--评论内容区-->
+    <view class="line-bar"></view>
+    <view wx:for="{{commList}}" wx:key='' wx:for-item="item" class="w-690 bor-t">
+        <view class="box-slide-t m-tb-30">
+    <!--主回复-->
+            <image class="header-img" src="{{item.head_img}}"></image>
+            <view class="comment-list">
+                <view bindtap="commentParent" data-parentid="{{item.id}}" data-atuserid="{{item.user_id}}" data-atusername="{{item.user_name}}">
+                    <view class="c-a4 box-slide m-t-10">
+                        <view class="f-15">{{item.user_name}}</view>
+                        <view class="f-13">{{item.create_date}}</view>
+                    </view>
+                    <view class="f-15 c-333 m-tb-20 lih-22">{{item.comment_content}}</view>
+                </view>
+    <!--主回复结束-->
+                <view wx:for="{{item.child_list}}" wx:key='' wx:for-item="childlist" wx:for-index="idx">
+                    <block wx:if="{{item.id==clickOpenClose}}">
+                        <view bindtap="commentParent" data-parentid="{{item.id}}" data-atuserid="{{childlist.user_id}}" data-atusername="{{childlist.user_name}}" class="comment-box box-slide-t">
+                            <image class="header-img2" src="{{childlist.head_img}}"></image>
+                            <view class="comment-list2">
+                                <view class="c-a4 box-left">
+                                    <view class="f-13 m-r-10">{{childlist.user_name}}</view>
+                                    <image wx:if="{{childlist.user_name=='修志夫'}}" style="width:70rpx;height:30rpx;" src="{{imghost}}doc-mark.png"></image>
+                                </view>
+                                <view class="f-13 c-333 m-t-10 p-b-20 bor-b-ec">
+                                    <text wx:if="{{childlist.user_id!=childlist.at_user_id||childlist.user_id!=item.user_id}}" class="c-54a8ff">回复{{childlist.at_user_name}}：</text>
+                                    {{childlist.comment_content}}
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                    <block>
+                        <view wx:if="{{idx<3}}"  bindtap="commentParent" data-parentid="{{item.id}}" data-atuserid="{{childlist.user_id}}" data-atusername="{{childlist.user_name}}" class="comment-box box-slide-t">
+                            <image class="header-img2" src="{{childlist.head_img}}"></image>
+                            <view class="comment-list2">
+                                <view class="c-a4 box-left">
+                                    <view class="f-13 m-r-10">{{childlist.user_name}}</view>
+                                    <image wx:if="{{childlist.user_name=='修志夫'}}" style="width:70rpx;height:30rpx;" src="{{imghost}}doc-mark.png"></image>
+                                </view>
+                                <view class="f-13 c-333 m-t-10 p-b-20 bor-b-ec">
+                                    <text wx:if="{{childlist.user_id!=childlist.at_user_id||childlist.user_id!=item.user_id}}" class="c-54a8ff">回复{{childlist.at_user_name}}：</text>
+                                    {{childlist.comment_content}}
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+                <view wx:if="{{item.child_list.length>3}}">
+                    <view wx:if="{{item.id==clickOpenClose}}" data-openclose="{{item.id}}" bindtap="closeAll" class="pick-up f-13 c-a4">
+                        收起回复△
+                    </view>
+                    <view wx:else data-openclose="{{item.id}}" data-alllist="{{item.child_list.length}}" bindtap="openAll" class="pick-up f-13 c-a4">
+                        展开所有回复▽
+                    </view>
+                </view>
+                <!--▽-->
+            </view>
+        </view>
+    </view>
+    </view>
+    <template is="addmore" data="{{lowerFooter}}"/>
+    <view style="height:104rpx;"></view>
+    <!--评论功能-->
+<view hidden="{{!comment}}" class="masking" style="top:0px;left:0px;"></view>
+<view class="comment-area posi-b">
+    <input bindfocus="foComment"  bindconfirm="inputOver" bindblur="inputBlur" focus="{{comment}}" class="comment f-13 c-4e" value="{{textContent}}" placeholder="我要评论..." placeholder-class="f-13 c-a4"/>
+</view>

@@ -1,0 +1,93 @@
+<!--pages/index/index.wxml-->
+<import src="../../template/addmore.wxml" />
+<scroll-view scroll-y="true" style="width:100%;height:{{screenHeight}}px" bindscrolltolower="addMore"> 
+    <navigator url="/pages/index/info" hover-class="none">
+        <image style="width:100%;height:460rpx;" src="{{imghost}}xzf-photo.jpg"></image>
+    </navigator>
+    <!--<view class="line-bar"></view>-->
+    <!--客服按钮-->
+    <view class="kefu-but">
+        <contact-button type="default-light" size="20" session-from="weapp"></contact-button>
+        咨询
+    </view>
+    <view class="box">
+        <image class="m-tb-30 img-l"src="{{imghost}}index-share.png"></image>
+        <view class="box-slide w-690">
+            <navigator url="/pages/index/kepu/kepu" hover-class="none">
+                <image class="img-m m-b-30" src="{{imghost}}index-follow.png"></image>
+            </navigator>
+            <navigator url="/pages/index/anli/anli" hover-class="none">
+                <image class="img-m m-b-30" src="{{imghost}}index-anli.png"></image>
+            </navigator>
+        </view>
+    </view>
+    <view wx:for="{{resultData}}" wx:key="" wx:for-item="item">
+        <block wx:if="{{item.post_type_id=='2'}}">
+            <view class="line-bar"></view>
+            <navigator url="/pages/index/anli/detail/detail?postId={{item.id}}" hover-class="none">
+                <view class="w-690">
+                    <view class="box-left m-t-30 m-b-20 f-17 c-333">
+                        <text class="c-ff7481 m-r-10">#案例#</text>
+                        <text>{{item.title}}</text>
+                    </view>
+                    <!--<view class="f-14 c-4e m-b-20">{{item.content}}</view>-->
+                    <!--图片显示-->
+                    <view class="box-slide">
+                        <image wx:for="{{item.img_url}}" wx:key="" class="img-220" src="{{item}}"></image>
+                        <!--<image class="img-220" src="{{imghost}}220.png"></image>
+                        <image class="img-220" src="{{imghost}}220.png"></image>
+                        <image class="img-220" src="{{imghost}}220.png"></image>-->
+                    </view>
+                    <!--标签显示-->
+                    <view class="box-left m-t-20">
+                        <image class="mark-img" src="{{imghost}}mark.png"></image>
+                        <text wx:for="{{item.label_name}}" wx:key="" wx:item="item" class="f-13 c-54a8ff m-r-30">{{item}}</text>
+                    </view>
+                    <!--已读，收藏，评论-->
+                    <view class="box-slide pd-lr-30 m-t-40 m-b-24">
+                        <view class="box-slide">
+                            <image class="img-46" src="{{imghost}}reded.png"></image>
+                            <text class="a4 f-13">{{item.sum_read_count}}</text>
+                        </view>
+                        <view class="box-slide">
+                            <image class="img-46" src="{{imghost}}love.png"></image>
+                            <text class="a4 f-13">{{item.collection_count}}</text>
+                        </view>
+                        <view class="box-slide">
+                            <image class="img-46" src="{{imghost}}comment.png"></image>
+                            <text class="a4 f-13">{{item.comment_count}}</text>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </block>
+        <block wx:else>
+            <view class="line-bar"></view>
+            <navigator url="/pages/index/kepu/detail/detail?postiId={{item.id}}&labelId={{item.label_id[0]}}&productId={{item.product_id}}" hover-class="none">
+                <view class="w-690">
+                    <view class="box-left m-t-30 m-b-20 f-17 c-333">
+                        <text class="c-06c1ae m-r-10">#科普# </text>
+                        <text>{{item.title}}</text>
+                    </view>
+                    <image style="width:692rpx;height:321rpx;" src="{{item.img_url[0]}}"></image>
+                    <!--已读，收藏，评论-->
+                    <view class="box-slide pd-lr-30 m-t-40 m-b-24">
+                        <view class="box-slide">
+                            <image class="img-46" src="{{imghost}}reded.png"></image>
+                            <text class="a4 f-13">{{item.sum_read_count}}</text>
+                        </view>
+                        <view class="box-slide">
+                            <image class="img-46" src="{{imghost}}love.png"></image>
+                            <text class="a4 f-13">{{item.collection_count}}</text>
+                        </view>
+                        <!--<view class="box-slide" style="width:120rpx">
+                            <image class="img-46" src="{{imghost}}comment.png"></image>
+                            <text class="a4 f-13">820</text>
+                        </view>-->
+                    </view>
+                </view>
+            </navigator>
+        </block>
+    </view>
+    <template is="addmore" data="{{lowerFooter}}"/>
+</scroll-view>

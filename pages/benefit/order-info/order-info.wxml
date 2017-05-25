@@ -1,0 +1,55 @@
+<!--pages/benefit/order-info/order-info.wxml-->
+<view class="bg-c-ff">
+    <view class="box-slide pd-lr-30" style="height:202rpx;position: relative;">
+    <image style="width:170rpx;height:170rpx;" src="{{productOrder.img_url}}"></image>
+    <view class="" style="width:500rpx;">
+        <view class="f-16 c-333">{{productOrder.product_name}}</view>
+        <!--<view class="f-14 c-a4 h-67">厦门修志夫整形美容医院</view>-->
+        <view style="margin: 30rpx 0rpx 10rpx 0rpx;">
+            <text class="f-13 c-a4">特惠： </text>
+            <text class="f-1 c-ff523c">￥{{productOrder.prefer_price}}</text> 
+        </view>
+        <view class="f-13 c-a4 text-d">原价￥{{productOrder.price}}</view>
+    </view>
+    <view class="box-slide num-posi">
+        <view bindtap="minNum" class="img-60-50 min-f-bg" hover= "true" hover-class="min-t-bg"></view>
+        <view  class="img-60-50 num-bg">{{goodsNum}}</view>
+        <view bindtap="addNum" class="img-60-50 add-f-bg" hover= "true" hover-class="add-t-bg"></view>
+    </view>
+</view>
+</view>
+<view class="line-bar"></view>
+<view class="bg-c-ff">
+    <view class="w-690">
+        <input bindinput="inputName" value="{{nameValue}}" class="input-bar f-16 c-333 bor-b-ec" type="text" placeholder="姓 名"placeholder-class="f-15 c-a4"/>
+        <view class="box-slide bor-b-ec">
+            <input bindinput="inputPhone" value="{{phoneValue}}" class="input-bar f-16 c-333" type="number" placeholder="手机号"placeholder-class="f-15 c-a4"/>
+            <view class="get-code f-14 {{flag==false?'bg-54a8ff':'bg-f4'}}" bindtap="getCode">{{setNum}}</view>
+        </view>
+        <input bindinput="inputCode" value="{{codeValue}}" class="input-bar f-16 c-333 bor-b-ec" type="number" placeholder="验证码"placeholder-class="f-15 c-a4"/>
+        <picker class="input-bar c-4e f-15 bor-b-ec" mode="date" value="{{date}}" start="{{starT}}"bindchange="bindDateChange">
+            <view class="box-slide">
+                <view>期望到院时间</view>
+                <view class="if-16 c-a4">{{dateTime}}</view>
+            </view>
+        </picker>
+        <textarea bindinput="inputTextare" class="order-textarea f-16 c-333" placeholder="给客服留言（选填）"placeholder-class="c-a4" cursor-spacing="10"/>
+    </view>
+</view>
+<!--底部支付footer-->
+<view class="posi-b" style="width:100%">
+    <view class="box-slide bor-t bg-c-ff">
+        <view class="f-13 m-l-30">
+            <text class="c-a4">预付：</text>
+            <text class="f-16 c-ff523c">￥{{productOrder.pay_type==1?productOrder.prefer_price*goodsNum:0}}</text>
+        </view>
+        <view class="box-slide">
+            <!--<image bindtap="explainShow" class="m-r-30" style="width:28rpx;height:28rpx;" src="{{imghost}}shuoming.png"></image>-->
+            <!--<navigator url="/pages/benefit/order-over/order-over">
+                <view class="order-but">提交订单</view>
+            </navigator>-->
+            <button type="primary" size="mini" loading="{{loading}}" plain="true" disabled="{{loading}}"
+            bindtap="submitOrder" >提交订单</button>
+        </view>
+    </view>
+</view>

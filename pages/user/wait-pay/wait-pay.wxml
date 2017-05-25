@@ -1,0 +1,172 @@
+<!--pages/benefit/wait-pay/wait-pay.wxml-->
+<!--订单状态-->
+<!--支付类订单-->
+<!--待支付-->
+<view style="height:120rpx;" wx:if="{{orderDetal.status==6&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">等待支付</view>
+    <view class="box-center f-14 c-a4">逾期未支付订单将自动取消</view>
+</view>
+<!--已取消-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==2&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单已取消</view>
+    <view class="box-center f-14 c-a4">很遗憾，您放弃了本次的购买</view>
+</view>
+<!--已完成-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==4&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单已消费</view>
+    <view class="box-center f-14 c-a4">您已完成到院手术，祝您恢复完美</view>
+</view>
+<!--未消费-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==3&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单支付成功</view>
+    <view class="box-center f-14 c-a4">您的订单已确认，请及时消费哦</view>
+</view>
+<!--待退款-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==7&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">已取消，待退款</view>
+    <view class="box-center f-14 c-a4">您已申请退款，该订单退款中</view>
+</view>
+<!--已退款-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==8&&orderDetal.pay_type==1}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">退款成功</view>
+    <view class="box-center f-14 c-a4">该订单款项已原路退回您的账户，请注意查收</view>
+</view>
+<!--支付类订单-->
+<!--预约类订单-->
+<!--已完成-->
+<view style="height:120rpx;" wx:if="{{orderDetal.status==4&&orderDetal.pay_type==2}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单已消费</view>
+    <view class="box-center f-14 c-a4">您已完成到院手术，祝您恢复完美</view>
+</view>
+<!--未消费-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==3&&orderDetal.pay_type==2}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单预约成功</view>
+    <view class="box-center f-14 c-a4">您的订单已预约成功，请及时到院手术</view>
+</view>
+<!--已取消-->
+<view style="height:120rpx;" wx:elif="{{orderDetal.status==2&&orderDetal.pay_type==2}}">
+    <view class="box-center f-18 c-54a8ff m-tb-10">订单已取消</view>
+    <view class="box-center f-14 c-a4">很遗憾，您取消了本次的预约</view>
+</view>
+<!--预约类订单-->
+<!--商品信息-->
+<navigator url="/pages/benefit/goods-detail/goods-detail?productId={{productDetail.id}}" hover-class="none">
+    <view class="box-slide bor-b-ec pd-lr-30 bg-c-ff" style="height:262rpx">
+        <image style="width:200rpx;height:200rpx;" src="{{productDetail.img_url}}"></image>
+        <view class="" style="width:466rpx;">
+            <view class="f-17 c-333 h-67">{{productDetail.product_name}}</view>
+            <view class="f-14 c-a4 h-67">厦门修志夫整形美容医院</view>
+            <view class="box-slide h-67 m-t-50">
+                <view>
+                    <text class="f-18 f-w c-ff523c">￥{{productDetail.prefer_price}} </text>
+                    <text class="f-14 c-a4 text-d">￥{{productDetail.price}}</text>
+                </view>
+                <view class="f-14">
+                </view>
+            </view>
+        </view>
+    </view>
+</navigator>
+<!--预约码-->
+<view wx:if="{{!((orderDetal.status==6||orderDetal.status==2)&&orderDetal.pay_type==1)}}">
+    <view class="w-690 box-slide">
+        <view class="h-80 f-14 c-a4">预约码</view>
+        <view wx:if="{{orderDetal.status==4}}" class="h-80 f-14 c-a4">已消费</view>
+        <view wx:elif="{{orderDetal.status==2||orderDetal.status==3}}" class="h-80 f-14 c-a4">未消费</view>
+        <view wx:elif="{{orderDetal.status==7||orderDetal.status==8}}" class="h-80 f-14 c-a4">不可消费</view>
+    </view>
+    <view class="bg-c-ff">
+        <view class="w-690">
+        <!--已消费-->
+            <view wx:if="{{orderDetal.status==4}}"  class="input-bar f-15 c-4e box-slide">
+                <view>预约码：<text class="c-a4">{{orderDetal.reserve_code}}</text></view>
+            </view>
+        <!--未消费-->
+            <view wx:elif="{{orderDetal.status==3&&orderDetal.pay_type==1}}" class="input-bar f-15 c-4e bor-b-ec box-slide">
+                <view>预约码：{{orderDetal.reserve_code}}</view>
+                <view bindtap="applyRefund" class="re-code bor-ec f-14 c-a4 t-al">申请退款</view>
+            </view>
+        <!--已取消申请退款中-->
+            <view wx:elif="{{orderDetal.status==2&&orderDetal.pay_type==1}}" class="input-bar f-15 c-4e box-slide">
+                <view>预约码：<text class="c-a4">{{orderDetal.reserve_code}}</text></view>
+                <view class="re-code bor-ec f-14 c-a4 t-al">申请退款中</view>
+            </view>
+        <!--已退款-->
+            <view wx:elif="{{orderDetal.status==8&&orderDetal.pay_type==1}}" class="input-bar f-15 c-4e box-slide">
+                <view>预约码：<text class="c-a4">{{orderDetal.reserve_code}}</text></view>
+                <view class="re-code bor-ec f-14 c-a4 t-al">订单已退款</view>
+            </view>
+        <!--到院支付未消费-->
+            <view wx:elif="{{orderDetal.status==3&&orderDetal.pay_type==2}}"  class="input-bar f-15 c-4e bor-b-ec box-slide">
+                <view>预约码：{{orderDetal.reserve_code}}</view>
+                <view bindtap="cancelOrderConfirm" class="re-code bor-ec f-14 c-a4 t-al">取消预约</view>
+            </view>
+        <!--到院支付已取消-->
+            <view wx:elif="{{orderDetal.status==2&&orderDetal.pay_type==2}}"  class="input-bar f-15 c-4e box-slide">
+                <view>预约码：<text class="c-a4">{{orderDetal.reserve_code}}</text></view>
+                <view class="re-code bor-ec f-14 c-a4 t-al">订单已取消</view>
+            </view>
+            <view wx:if="{{orderDetal.status==3}}" style="height:120rpx;" class="m-t-30 f-14 c-a4 lih-20">
+                <text class="c-54a8ff">注：</text>请在到院决定消费时出示预约码，为了保证享受到订单中的优惠，请尽快消费
+            </view>
+        </view>
+    </view>
+</view>
+<!--支付信息-->
+<view class="w-690">
+    <view class="h-80 f-14 c-a4">支付信息</view>
+</view>
+<view class="bg-c-ff">
+    <view class="w-690">
+        <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+            <view>支付金额</view>
+            <view class="c-ff523c">￥{{orderDetal.pay_type==1?orderDetal.money:0}}</view>
+        </view>
+        <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+            <view>商品数量</view>
+            <view class="c-54a8ff">X{{orderDetal.order_count}}</view>
+        </view>
+        <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+            <view>支付方式</view>
+            <view>{{orderDetal.pay_type==1?'在线全额支付':'到院全额支付'}}</view>
+        </view>
+        <view style="height:120rpx;" class="m-t-30 f-14 c-a4 lih-20">
+            <text class="c-54a8ff">注：</text>
+            {{orderDetal.pay_type==1?'该订单为在线全额支付，预约下单时需支付全额款项，到院后无需支付':'该订单为到院全额支付，预约下单时不收取订单费用，需到院后支付项目全额费用'}}
+        </view>   
+    </view>
+</view>
+<!--预约信息-->
+<view class="w-690">
+    <view class="h-80 f-14 c-a4">预约信息</view>
+</view>
+<view class="bg-c-ff">
+    <view class="w-690">
+        <picker disabled="{{orderDetal.status==6||orderDetal.status==3?false:true}}" class="input-bar c-4e f-15 bor-b-ec" mode="date" value="{{dateTime}}" bindchange="bindDateChange">
+            <view class="box-slide">
+                <view>预约时间</view>
+                <view class="f-15 c-4e box-slide">
+                    <text>{{dateTime}}</text>
+                    <image class="{{orderDetal.status==6||orderDetal.status==3?'':'hide'}} m-l-20" style="width:37rpx;height:37rpx;" src="{{imghost}}change.png"></image>
+                </view>
+            </view>
+        </picker>
+        <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+            <view>联系姓名</view>
+            <view>{{orderDetal.real_name}}</view>
+        </view>
+        <view class="input-bar f-15 c-4e box-slide">
+            <view>联系电话</view>
+            <view>{{orderDetal.mobile}}</view>
+        </view>
+    </view>
+</view>
+<!--等待支付-->
+<!--底部支付footer-->
+<view wx:if="{{orderDetal.pay_type==1&&orderDetal.status==6}}" class="posi-b" style="width:100%">
+    <view class="box-slide bor-t f-16">
+        <view bindtap="cancelOrderConfirm" class="box-center bg-c-ff c-a4" style="width:240rpx;height:100rpx;">取消订单</view>
+        <view bindtap="goPayOrder" class="order-but" style="width:510rpx;height:100rpx;">去支付{{lastTime}}</view>
+    </view>
+</view>
+<view style="height:120rpx;"></view>

@@ -1,0 +1,31 @@
+/* pages/benefit/order-info/order-info.wxss */
+page{
+  background-color: #f4f4f4;
+}
+button[size="mini"]{
+  width: 250rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  padding:0px;
+}
+button[type="primary"][plain]:not([disabled]):active {
+  color: #ffffff;
+  border: 0;
+  background-color:#54a8ff;
+}
+button[loading][type="primary"][plain] {
+  color: #ffffff;
+  border: 0;
+  background-color:#54a8ff;
+}
+button[type="primary"][plain] {
+  color:#ffffff;
+  border: 0;
+  background-color:#54a8ff;
+}
+button{
+  color: #ffffff;
+  border-radius:0px;
+  background-color:#54a8ff;
+}

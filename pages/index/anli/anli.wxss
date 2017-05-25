@@ -1,0 +1,4 @@
+/* pages/index/anli/anli.wxss */
+page{
+  background-color: #f4f4f4;
+}

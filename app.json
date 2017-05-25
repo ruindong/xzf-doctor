@@ -1,0 +1,47 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/index/info",
+    "pages/benefit/benefit",
+    "pages/index/anli/anli",
+    "pages/index/kepu/kepu",
+    "pages/index/kepu/detail/detail",
+    "pages/user/user",
+    "pages/index/anli/detail/detail",
+    "pages/user/wait-pay/wait-pay",
+    "pages/benefit/order-info/order-info",
+    "pages/benefit/order-succeed/order-succeed",
+    "pages/benefit/order-over/order-over",
+    "pages/benefit/goods-detail/goods-detail",
+    "pages/benefit/hos-hot/hos-hot",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "修志夫",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "backgroundColor": "#ffffff",
+    "color": "#444444",
+    "selectedColor": "#54a8ff",
+    "borderStyle": "white",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "修修",
+      "iconPath":"images/xzf-true.png",
+      "selectedIconPath":"images/xzf-true.png"
+    },{
+      "pagePath": "pages/benefit/benefit",
+      "text": "优惠",
+      "iconPath":"images/benefit-false.png",
+      "selectedIconPath":"images/benefit-true.png"
+    },{
+      "pagePath": "pages/user/user",
+      "text": "我的",
+      "iconPath":"images/user-false.png",
+      "selectedIconPath":"images/user-true.png"
+    }]
+  }
+}

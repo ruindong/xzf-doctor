@@ -1,0 +1,80 @@
+<!--pages/benefit/benefit.wxml-->
+<import src="../../template/addmore.wxml" />
+<scroll-view scroll-y="true" style="width:100%;height:{{screenHeight}}px" upper-threshold="1"bindscrolltolower="benefitAddMore">
+    <!--低价优惠-->
+    <view wx:if="{{resultBanner!=''}}">
+        <view class="w-690 box-center">
+            <image class="m-tb-30" style="width:130rpx;height:56rpx;" src="{{imghost}}low-price.png"></image>
+        </view>
+        <!--轮播低价优惠-->
+        <scroll-view class="m-b-30 benefit-banner" scroll-x="true" style="height: 300rpx;">
+            <view wx:for='{{resultBanner}}' wx:key='' wx:item='{{item}}' style="display: inline-block;">
+                <navigator url="/pages/benefit/goods-detail/goods-detail?productId={{item.id}}" hover-class="none">
+                    <view class="benefit-item m-l-30 box-slide">
+                        <image class="img-300" mode="aspectFill" src="{{item.img_url}}"></image>
+                        <view class="banner-info bg-c-f6 box-c">
+                            <view style="white-space:normal;" class="f-17 c-333 f-w p-lr-20">{{item.product_name}}</view>
+                            <view class="f-24 c-ff523c f-w m-t-28">{{item.prefer_price}}<text class="f-15">元</text></view>
+                            <view class="f-11 c-a4">市场价<text>{{item.price}}元</text></view>
+                            <view class="f-13 c-a4 m-t-28">厦门修志夫整形美容医院</view>
+                        </view>
+                    </view>
+                </navigator>
+            </view>
+        </scroll-view>
+        <view class="line-bar"></view>
+        <!--医院热门-->
+    </view>
+    <view wx:if="{{getSubject!=''}}">
+        <view class="w-690 box-center">
+            <image class="m-tb-30" style="width:130rpx;height:56rpx;" src="{{imghost}}hos-hot.png"></image>
+        </view>
+        <view class="box-slide bor-tb bg-c-ec">
+            <block wx:for="{{getSubject}}" wx:key="" wx:for-item="item" wx:for-index="idx" wx:if="{{idx<2}}">
+                <navigator url="{{item.product_url}}" hover-class="none">
+                    <image mode="aspectFill" class="img-374-200 bg-c-ff bor-r-ec" src="{{item.img_url}}"></image>
+                </navigator>                
+            </block>
+        </view>
+        <view class="box-slide bg-c-ec">
+            <block  wx:for="{{getSubject}}" wx:key="" wx:for-item="item" wx:for-index="idx" wx:if="{{idx>=2}}">
+                <navigator url="{{item.product_url}}" hover-class="none">
+                    <image mode="aspectFill" class="img-186-240 bg-c-ff bor-r-ec" src="{{item.img_url}}"></image>
+                </navigator>
+            </block>
+        </view>
+        <!--</view>-->
+        <view class="line-bar"></view>
+    </view>
+    <!--标签选择-->
+            <scroll-view class="navBar2 bor-b-ec bor-t" scroll-x="true">
+            <view wx:for="{{GetProTypeList}}" wx:key="" wx:for-item="item" wx:for-index="idx" id="{{item.id}}" bindtap="navSelset" data-name="{{item.label_name}}" class="bar-item {{item.id==select?'c-54a8ff f-16 bor-b f-w':'c-4e f-15'}}">{{item.label_name}}</view>
+            </scroll-view>
+    <!--列表-->
+    <view style="width:100%;background-color: #f4f4f4;">
+        <block wx:for="{{commonList}}" wx:key='' wx:for-item="item">
+            <navigator url="/pages/benefit/goods-detail/goods-detail?productId={{item.id}}" hover-class="none">
+                <view class="box-slide bor-b-ec pd-lr-30 bg-c-ff" style="height:262rpx">
+                    <image mode="aspectFill" style="width:200rpx;height:200rpx;" src="{{item.img_url}}"></image>
+                    <view class="box-clu" style="width:466rpx;height:200rpx;">
+                        <view class="f-17 c-333" style="width:466rpx;">{{item.product_name}}
+                        <view class="f-14 c-a4 m-t-20" style="width:466rpx;">厦门修志夫整形美容医院</view>
+                        </view>
+                        <view class="box-slide" style="width:466rpx;">
+                            <view>
+                                <text class="f-18 f-w c-ff523c">￥{{item.prefer_price}} </text>
+                                <text class="f-14 c-a4 text-d">￥{{item.price}}</text>
+                            </view>
+                            <!--<image style="width:124rpx;height:46rpx;" src="{{imghost}}order.png"></image>-->
+                            <view class="f-14">
+                                <text class="c-a4">预约数：</text>
+                                <text class="c-ff523c">{{item.sum_reserve_count}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </block>
+        <template is="addmore" data="{{lowerFooter}}"/>
+    </view>
+</scroll-view>

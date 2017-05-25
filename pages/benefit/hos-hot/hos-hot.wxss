@@ -1,0 +1,4 @@
+/* pages/benefit/hos-hot/hos-hot.wxss */
+page{
+  background-color: #f4f4f4;
+}

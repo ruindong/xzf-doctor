@@ -1,0 +1,68 @@
+<!--pages/index/kepu/detail/detail.wxml-->
+<import src="../../../../wxParse/wxParse.wxml"/> 
+<view class="w-690">
+    <view class="box-slide bor-b-ec" style="height:180rpx;">
+        <view style="width:510rpx;" class="p-r-30 f-18 c-333 f-w bor-r-ec">{{detailResult.title}}</view>
+        <view wx:if="{{imgLove==true}}" bindtap="lovePost">
+            <image class="m-l-30" style="width:120rpx;height:52rpx;" src="{{imghost}}img-love.png"></image>
+        </view>
+        <view wx:else bindtap="lovePost">
+            <image class="m-l-30" style="width:120rpx;height:52rpx;" src="{{imghost}}img-loved.png"></image>
+        </view>
+    </view>
+    <view class="box-left" style="height:80rpx; overflow-x: auto;">
+        <view wx:for="{{detailResult.label_name}}" wx:key="" class=" h-40 p-lr-20 t-al bg-c-f3 bo-ra-20 f-13 c-4e m-r-30">{{item}}</view>
+        <!--<view class=" h-40 p-lr-20 t-al bg-c-f3 bo-ra-20 f-13 c-4e m-r-30">线雕隆鼻</view>
+        <view class=" h-40 p-lr-20 t-al bg-c-f3 bo-ra-20 f-13 c-4e m-r-30">隆鼻修复</view>-->
+    </view>
+</view>
+<view class="line-bar"></view>
+<view class="w-690">
+    <!--<image class="m-t-30" style="width:100%;height:310rpx;" src="{{detailResult.img_url}}"></image>-->
+    <!--内容-->
+    <view class="f-15 c-4e lih-22 m-tb-30">
+        <view class="wxParse">
+            <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+        </view>
+    <!--{{detailResult.content}}-->
+    </view>
+    <!--商品-->
+    <block wx:if="{{OneProduct!=''}}">
+        <navigator url="/pages/benefit/goods-detail/goods-detail?productId={{OneProduct.id}}" hover-class="none">
+            <view class="box-center bg-c-f3" style="height:202rpx">
+                <image style="width:170rpx;height:170rpx;" src="{{OneProduct.img_url}}"></image>
+                <view class="" style="width:460rpx;">
+                    <view class="f-16 c-333 h-67">{{OneProduct.product_name}}</view>
+                    <view class="f-14 c-a4 h-67">厦门修志夫整形美容医院</view>
+                    <view class="box-slide h-67">
+                        <view>
+                            <text class="f-16 c-ff523c">￥{{OneProduct.prefer_price}} </text>
+                            <text class="f-13 c-a4 text-d">￥{{OneProduct.price}}</text>
+                        </view>
+                        <image style="width:124rpx;height:46rpx;" src="{{imghost}}order.png"></image>
+                    </view>
+                </view>
+            </view>
+        </navigator>
+    </block>
+    <view class="h-80 f-13 c-a4">发布于：{{detailResult.update_date}}</view>
+</view>
+<view class="line-bar"></view>
+<view class=" {{resultData.length>0?'':'hide'}} h-80 pd-lr-30 bor-b-ec f-16 c-333">更多整形科普</view>
+<view class="w-690" wx:for="{{resultData}}" wx:key="" wx:item="item">
+    <navigator url="/pages/index/kepu/detail/detail?postiId={{item.id}}&labelId={{item.label_id}}" hover-class="none">
+        <view class="box-slide pd-tb-30 bor-b-ec">
+            <image class="img-260-180" src="{{item.img_url}}"></image>
+            <view class="w-410">
+                <view class="f-15 c-333 lih-22">{{item.title}}</view>
+                <!--标签显示-->
+                <view class="box-left m-t-40">
+                    <image class="mark-img" src="{{imghost}}mark.png"></image>
+                    <text wx:for="{{item.label_name}}" wx:key="" wx:item="item" class="f-13 c-54a8ff m-r-30">{{item}}</text>
+                    <!--<text class="f-13 c-54a8ff m-r-30">玻尿酸</text>
+                    <text class="f-13 c-54a8ff m-r-30">胸部</text>-->
+                </view>
+            </view>
+        </view>
+    </navigator>
+</view>

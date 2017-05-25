@@ -1,0 +1,127 @@
+<!--pages/user/user.wxml-->
+<import src="../../template/addmore.wxml" />
+<view class="user-bg">
+    <image class="user-header" src="{{userHeader}}"></image>
+    <view class="f-16 c-f box-center">{{nickName}}</view>
+</view>
+<!--<view class="line-bar"></view>-->
+<view class="box-center bor-b-ec bg-c-ff" style="height:90rpx;">
+    <view bindtap="myCollect" class="w-50 {{showType=='1'?'f-17 c-54a8ff bor-b ':'f-16 c-4e'}}">我的收藏</view>
+    <view style="width:4rpx;height:36rpx;" class="bor-r-ec"></view>
+    <view bindtap="myOrder" class="w-50 {{showType=='2'?'f-17 c-54a8ff bor-b':'f-16 c-4e'}}">我的订单</view>
+</view>
+<bolck wx:if="{{showType==1}}">
+    <view class="bg-c-ff" wx:for="{{myCollectList}}" wx:key="" wx:for-item="item">
+        <block wx:if="{{item.post_type_id=='2'}}">
+            <scroll-view scroll-x="true" style="width:750rpx;height:470rpx;white-space:nowrap;"data-id="{{item.id}}" bindscroll="leftScroll" scroll-left="{{inde==item.id?left:0}}">
+                <view style="width:920rpx;height:470rpx;"class="box-slide">
+                    <navigator url="/pages/index/anli/detail/detail?postId={{item.id}}" hover-class="none">
+                        <view class="pd-lr-30"style="width:690rpx;">
+                            <view class="box-left m-t-30 m-b-20 f-17 c-333">
+                                <text class="c-ff7481 m-r-10">#案例#</text>
+                                <text>{{item.title}}</text>
+                            </view>
+                            <!--<view class="f-14 c-4e m-b-20">线雕隆鼻，是把线体支架注射进鼻部，利用这种线的...</view>-->
+                            <!--图片显示-->
+                            <view class="box-slide">
+                                <image wx:for="{{item.img_url}}" wx:key="" class="img-220" src="{{item}}"></image>
+                            </view>
+                            <!--标签显示-->
+                            <view class="box-left m-t-20">
+                                <image class="mark-img" src="{{imghost}}mark.png"></image>
+                                <text wx:for="{{item.label_name}}" wx:key="" wx:item="item" class="f-13 c-54a8ff m-r-30">{{item}}</text>
+                            </view>
+                            <!--已读，收藏，评论-->
+                            <view class="box-slide pd-lr-30 m-t-40 m-b-24">
+                                <view class="box-slide">
+                                    <image class="img-46" src="{{imghost}}reded.png"></image>
+                                    <text class="a4 f-13">{{item.sum_read_count}}</text>
+                                </view>
+                                <view class="box-slide">
+                                    <image class="img-46" src="{{imghost}}love.png"></image>
+                                    <text class="a4 f-13">{{item.collection_count}}</text>
+                                </view>
+                                <view class="box-slide">
+                                    <image class="img-46" src="{{imghost}}comment.png"></image>
+                                    <text class="a4 f-13">{{item.comment_count}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </navigator>
+                    <view class="box-c cancel" style="height:470rpx;" data-postid="{{item.id}}" bindtap="cancelPost">
+                        <image class="img-50 m-b-16" src="{{imghost}}cancel.png"></image>
+                        <view  class="f-14 c-54a8ff">取消收藏</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </block>
+        <block wx:else>
+            <scroll-view scroll-x="true" style="width:750rpx;height:515rpx;white-space:nowrap;"data-id="{{item.id}}" bindscroll="leftScroll" scroll-left="{{inde==item.id?left:0}}">
+                <view style="width:920rpx ;height:515rpx;"class="box-slide">
+                    <navigator url="/pages/index/kepu/detail/detail?postiId={{item.id}}&labelId={{item.label_id}}" hover-class="none">
+                        <view class="pd-lr-30"style="width:690rpx;">
+                            <view class="box-left m-t-30 m-b-20 f-17 c-333">
+                                <text class="c-06c1ae m-r-10">#科普#</text>
+                                <text>{{item.title}}</text>
+                            </view>
+                            <image style="width:692rpx;height:321rpx;" src="{{item.img_url[0]}}"></image>
+                            <!--已读，收藏，评论-->
+                            <view class="box-slide pd-lr-30 m-t-40 m-b-24">
+                                <view class="box-slide">
+                                    <image class="img-46" src="{{imghost}}reded.png"></image>
+                                    <text class="a4 f-13">{{item.sum_read_count}}</text>
+                                </view>
+                                <view class="box-slide">
+                                    <image class="img-46" src="{{imghost}}love.png"></image>
+                                    <text class="a4 f-13">{{item.collection_count}}</text>
+                                </view>
+                                <!--<view class="box-slide" style="width:120rpx"></view>-->
+                            </view>                    
+                        </view>
+                    </navigator>
+                    <view class="box-c cancel" style="height:520rpx;" data-postid="{{item.id}}" bindtap="cancelPost">
+                        <image class="img-50 m-b-16" src="{{imghost}}cancel.png"></image>
+                        <view  class="f-14 c-54a8ff">取消收藏</view>
+                    </view>
+                </view>
+            </scroll-view>
+        </block>
+        <view class="line-bar"></view>
+    </view>
+    <template is="addmore" data="{{lowerFooter}}"/>
+</bolck>
+<block wx:else>
+    <view class="bg-c-ff">
+        <!--<view wx:if="{{orderListLength==0}}" class="box-c f-15 c-a4 m-t-50 bg-c-f3">您还没有订单呦</view>
+        <block wx:else>-->
+            <view wx:for="{{myOrderList}}" wx:key='' wx:for-item = "item">
+                <navigator url="/pages/user/wait-pay/wait-pay?orderId={{item.id}}" hover-class="none">
+                    <view class="box-slide bor-b-ec pd-lr-30" style="height:262rpx">
+                        <image style="width:200rpx;height:200rpx;" src="{{item.img_url}}"></image>
+                        <view class="" style="width:466rpx;">
+                            <view class="f-17 c-333 h-67">{{item.product_name}}</view>
+                            <view class="f-14 c-a4 h-67">
+                                <text class=" c-a4">数量:</text>
+                                <text class=" c-54a8ff"> X{{item.order_count}}</text>
+                            </view>
+                            <view class=" h-67 m-t-50">
+                                <view>
+                                    <text class="f-14 c-a4">支付金额:</text>
+                                    <text class="f-18 c-ff523c">￥{{item.money}} </text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view wx:if="{{item.status==2}}" class="w-690 h-80 f-15 c-333">已取消</view>
+                    <view wx:elif="{{item.status==3}}" class="w-690 h-80 f-15 c-333">未消费</view>
+                    <view wx:elif="{{item.status==4}}" class="w-690 h-80 f-15 c-333">已消费</view>
+                    <view wx:elif="{{item.status==6}}" class="w-690 h-80 f-15 c-333">待支付</view>
+                    <view wx:elif="{{item.status==7}}" class="w-690 h-80 f-15 c-333">待退款</view>
+                    <view wx:elif="{{item.status==8}}" class="w-690 h-80 f-15 c-333">已退款</view>
+                    <view class="line-bar"></view>
+                </navigator>
+            </view>
+        <!--</block>-->
+    </view>
+    <template is="addmore" data="{{lowerFooter}}"/>
+</block>

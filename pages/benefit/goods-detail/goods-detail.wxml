@@ -1,0 +1,122 @@
+<!--pages/benefit/goods-detail/goods-detail.wxml-->
+<import src="../../../wxParse/wxParse.wxml"/> 
+<!--客服按钮-->
+<view class="kefu-but" style="bottom:150rpx;">
+    <contact-button type="default-light" size="20" session-from="weapp"></contact-button>
+    咨询
+</view>
+<!--banner-->
+<swiper style="width:100%;height:480rpx;" indicator-dots="true" autoplay="true" interval="5000" duration="1000" circular="true"> 
+    <!--<view wx:for="{{imgUrls}}" wx:for-index="id" wx:for-item="item">   -->
+    <view wx:for="{{productDetail.img_urls}}" wx:key='' wx:for-item="item">     
+        <swiper-item>    
+            <navigator url="" hover-class="navigator-hover">  
+                <image mode="aspectFill" style="width:100%;height:480rpx;" src="{{item}}"></image>
+            </navigator> 
+        </swiper-item>    
+    </view>
+</swiper>   
+<view class="w-690">
+    <view class="f-18 c-333 m-tb-30">{{productDetail.product_name}}</view>
+    <view>
+        <text class="f-16 c-ff523c">￥{{productDetail.prefer_price}} </text>
+        <text class="f-13 c-a4 text-d">￥{{productDetail.price}}</text>
+    </view>
+    <view class="box-slide m-tb-20">
+        <view class="f-13 c-a4">厦门</view>
+        <view class="f-13">
+            <text class="c-a4">预约数：</text>
+            <text class="c-ff523c">{{productDetail.sum_reserve_count}}</text>
+        </view>
+    </view>
+</view>
+<view class="line-bar"></view>
+<!--医院地址-->
+<view class="w-690">
+    <view class="pd-tb-30 box-left bor-b-ec">
+        <image class="hos-header" src="http://img5.dfhon.cn/imagefiles/hospital/201701/201701191043448848.jpg"></image>
+        <view>
+            <view class="f-16 c-4e m-b-16">厦门修志夫整形美容医院</view>
+            <view class="f-13 c-a4">资质：医疗美容门诊部</view>
+        </view>
+    </view>
+    <view class="box-slide" style="height:140rpx;">
+        <view class="box-slide">
+            <image bindtap="hosArea" class="img-50 m-r-30" src="{{imghost}}ditu.png"></image>
+            <view style="width:465rpx;" class="f-14 c-4e p-r-20 bor-r-ec">厦门市思明区湖滨北路玉秀中心36号（体育东村站）</view>
+        </view>
+        <image bindtap="callPhone" class="img-50 pd-30" src="{{imghost}}phone.png"></image>
+    </view>
+</view>
+<view class="line-bar"></view>
+<!--商品详情及订单须知-->
+<view class="box-center bor-b-ec" style="height:90rpx;">
+    <view bindtap="detailType1" class="w-50 bor-r-ec {{detailNav=='1'?'f-15 c-54a8ff':'f-14 c-4e'}}">商品详情</view>
+    <view bindtap="detailType2" class="w-50 {{detailNav=='2'?'f-15 c-54a8ff':'f-14 c-4e'}}">订单须知</view>
+</view>
+<!--商品详情-->
+<view class="w-690 {{detailNav=='2'?'hide':''}} pd-tb-30">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+</view>
+<!--订单须知-->
+<view class="w-690 {{detailNav=='1'?'hide':''}}">
+    <view class="box-center m-tb-46">◁使用流程▷</view>
+    <view class="box-slide-t m-tb-60">
+        <image style="width:88rpx;height:88rpx;"src="{{imghost}}order-01.png"></image>
+        <view class="w-690" style="width:570rpx;">
+            <text class="f-16 c-333">选择商品，下单购买</text>
+            <view class="f-14 c-4e lih-20">预约成功后，用于预约的手机将会收到短信通知，也可于我的订单中查看详情</view>
+        </view>
+    </view>
+    <view class="box-slide-t m-tb-60">
+        <image style="width:88rpx;height:88rpx;"src="{{imghost}}order-02.png"></image>
+        <view class="w-690" style="width:570rpx;">
+            <text class="f-16 c-333">客服与您联系，预约到院时间</text>
+            <view class="f-14 c-4e lih-20">预约成功后，客服将在第一个工作日内与您联系预约到院时间</view>
+        </view>
+    </view>
+    <view class="box-slide-t m-tb-60">
+        <image style="width:88rpx;height:88rpx;"src="{{imghost}}order-03.png"></image>
+        <view class="w-690" style="width:570rpx;">
+            <text class="f-16 c-333">到院面诊，安排手术</text>
+            <view class="f-14 c-4e lih-20">在预约的时间到院，主动出示预约码，验证通过后，院方将安排您进行手术</view>
+        </view>
+    </view>
+    <!--<view class="box-center m-tb-60">◁退款须知▷</view>
+    <view class="f-14 c-4e lih-20">未消费的订单，可订单详情内申请退款，审核通过后款项在7个工作日内原路退回</view>-->
+    <view class="box-center m-tb-60">◁消费须知▷</view>
+    <view class="f-14 c-4e lih-20">·预约码是您唯一的消费凭证，请勿随意转发他人</view>
+    <view class="f-14 c-4e lih-20">·预约码被验证后即视为已使用</view>
+    <!--<view class="f-14 c-4e lih-20">·特惠商品购买时需要支付商品全额，到院后只需出示预约码进行消费，即可享受服务</view>-->
+    <view class="f-14 c-4e lih-20">·订单商品为预约服务，在线并未支付商品金额，需到院后支付商品全额，方可享受服务</view>
+</view>
+<!--底部支付footer-->
+<view class="posi-b" style="width:100%">
+    <view class="box-slide bor-t bg-c-ff">
+        <view class="f-13 m-l-30">
+            <text class="c-a4">预付：</text>
+            <text class="f-16 c-ff523c">￥{{productDetail.pay_type==1?productDetail.prefer_price:0}}</text>
+        </view>
+        <view class="box-slide">
+            <image bindtap="explainShow" class="pd-30" style="width:28rpx;height:28rpx;" src="{{imghost}}shuoming.png"></image>
+            <navigator url="/pages/benefit/order-info/order-info?productId={{productId}}">
+                <view class="order-but">立即预约</view>
+            </navigator>
+        </view>
+    </view>
+</view>
+<view style="height:120rpx;"></view>
+<!--下单说明遮罩-->
+<view class="{{explain==true?'':'hide'}}">
+    <view class="explain"></view>
+    <view class="explain-text">
+        <view class=" pd-30">
+            <view class="box-center f-18 c-333">支付答疑</view>
+            <!--<view class="f-16 c-333 m-tb-30">为什么预约需要在线全额支付？</view>
+            <view class="f-13 c-4e lih-20">由于你预约的是优惠活动的商品，为保障您能享受到该优惠福利，所以在预约时需要在线全额支付款项。</view>-->
+            <view class="f-16 c-333 m-tb-30">为什么预约不需要支付手术费用？</view>
+            <view class="f-13 c-4e lih-20">为了免去您提前支付的困扰，该商品只需在线预约后凭出示预约码到院确定手术后再在现场支付整形款项即可。</view>
+        </view>
+        <view class="explain-but" bindtap="explainHide">确定</view>
+    </view>
+</view>

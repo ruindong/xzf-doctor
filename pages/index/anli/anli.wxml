@@ -1,0 +1,71 @@
+<!--pages/index/anli/anli.wxml-->
+<import src="../../../template/addmore.wxml" />
+<view class="posi-flex bor-b-ec bor-t" style="z-index:99">
+    <block wx:if="{{navType==true}}">
+        <!--类型选择1-->
+        <view class="box-slide">
+        <scroll-view class="nav-bar " scroll-x="true" scroll-left="{{scroll}}">
+            <view wx:for="{{GetProTypeList}}" wx:key="" wx:for-item="item" wx:for-index="idx" id="{{item.id}}" bindtap="navSelset1" data-name="{{item.label_name}}" class="nav-item {{item.id==select?'c-54a8ff f-16 bor-b f-w':'c-4e f-15'}}">{{item.label_name}}</view>
+        </scroll-view>
+        <image bindtap="navChange2" class="img-arrow " src="{{imghost}}arrow-down.png"></image>
+        </view>
+    </block>
+    <block wx:elif="{{navType==false}}">
+        <!--类型选择2-->
+        <view class="box-slide bor-b-ec">
+            <view class="nav-bar">
+                <view class="nav-item f-15 c-4e">栏目切换</view>
+            </view>
+            <image bindtap="navChange1" class="img-arrow" src="{{imghost}}arrow-up.png"></image>
+        </view>
+        <view class="m-t-30">
+            <view wx:for="{{GetProTypeList}}" wx:key="" wx:for-item="item" wx:for-index="idx" data-num="{{idx}}" id="{{item.id}}" bindtap="navSelset2" data-name="{{item.label_name}}" class="nav-item2 {{item.id==select?'c-54a8ff f-15':'c-4e f-14'}}">{{item.label_name}}</view>
+        </view>
+        <view class="masking"></view>
+    </block>
+</view>
+    <!--列表-->
+<scroll-view scroll-y="false" style="width:100%;height:{{screenHeight}}px" bindscrolltolower="addmore">
+<view class="bg-c-ff">
+<view class="h-90"></view>
+<view wx:for="{{resultData}}" wx:key="" wx:for-item="item">
+    <view class="w-690">
+        <navigator url="/pages/index/anli/detail/detail?postId={{item.id}}" hover-class="none">
+            <view class="box-left m-t-30 m-b-20 f-17 c-333">
+                <!--<text class="c-ff7481">#案例#</text>-->
+                <text>{{item.title}}</text>
+            </view>
+            <!--<view class="f-14 c-4e m-b-20">{{item.content}}</view>-->
+            <!--图片显示-->
+            <view class="box-slide">
+                <image wx:for="{{item.img_url}}" wx:key="" class="img-220" src="{{item}}"></image>  
+            </view>
+            <!--标签显示-->
+            <view class="box-left m-t-20">
+                <image class="mark-img" src="{{imghost}}mark.png"></image>
+                <text wx:for="{{item.label_name}}" wx:key="" wx:item="item" class="f-13 c-54a8ff m-r-30">{{item}}</text>
+                <!--<text class="f-13 c-54a8ff m-r-30">切开双眼皮</text>
+                <text class="f-13 c-54a8ff m-r-30">内开眼角</text>-->
+            </view>
+            <!--已读，收藏，评论-->
+            <view class="box-slide pd-lr-30 m-t-50 m-b-24">
+                <view class="box-slide">
+                    <image class="img-46" src="{{imghost}}reded.png"></image>
+                    <text class="a4 f-13">{{item.sum_read_count}}</text>
+                </view>
+                <view class="box-slide">
+                    <image class="img-46" src="{{imghost}}love.png"></image>
+                    <text class="a4 f-13">{{item.collection_count}}</text>
+                </view>
+                <view class="box-slide">
+                    <image class="img-46" src="{{imghost}}comment.png"></image>
+                    <text class="a4 f-13">{{item.comment_count}}</text>
+                </view>
+            </view>
+        </navigator>
+    </view>
+    <view class="line-bar"></view>
+</view>
+</view>
+<template is="addmore" data="{{lowerFooter}}"/>
+</scroll-view>

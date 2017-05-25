@@ -1,0 +1,40 @@
+
+<!--pages/benefit/hos-hot/hos-hot.wxml-->
+<import src="../../../wxParse/wxParse.wxml" />
+<import src="../../../template/addmore.wxml" />
+
+<!--客服按钮-->
+<view class="bg-c-ff">
+    <view class="kefu-but">
+        <contact-button type="default-light" size="20" session-from="weapp"></contact-button>
+        咨询
+    </view>
+    <image style="width:{{banerW}}px;height:{{bannerH}}px;" src="{{productDetail.img_urls}}"></image>
+    <view wx:if="{{productDetail.content!=''}}" class="w-690 pd-tb-30">
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+</view>
+<view class="line-bar"></view>
+<view wx:for="{{subjectList}}" wx:key='' wx:for-item="item">
+    <navigator url="/pages/benefit/goods-detail/goods-detail?productId={{item.id}}" hover-class="none">
+        <view class="box-slide bor-b-ec pd-lr-30 bg-c-ff" style="height:202rpx">
+        <image style="width:170rpx;height:170rpx;" src="{{item.img_url}}"></image>
+        <view class="" style="width:500rpx;">
+            <view class="f-16 c-333 h-67">{{item.product_name}}</view>
+            <view class="f-14 c-a4 h-67">厦门修志夫整形美容医院</view>
+            <view class="box-slide h-67">
+            <view>
+                <text class="f-16 c-ff523c">￥{{item.prefer_price}} </text>
+                <text class="f-13 c-a4 text-d">￥{{item.price}}</text>
+            </view>
+            <view class="f-13">
+                <text class="c-a4">预约数：</text>
+                <text class="c-ff523c">{{item.reserve_count}}</text>
+            </view>
+            </view>
+        </view>
+        </view>
+    </navigator>
+</view>
+<template is="addmore" data="{{lowerFooter}}" />
+<!--</view>-->

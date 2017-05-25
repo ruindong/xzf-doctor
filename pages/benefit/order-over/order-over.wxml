@@ -1,0 +1,25 @@
+<!--pages/benefit/order-over/order-over.wxml-->
+
+<view class="w-690">
+    <view class="input-bar f-15 c-4e bor-b-ec box-slide" bindtap="backPage">
+        <view>{{orderInfo.product_name}}</view>
+        <view class="box-slide">X{{orderInfo.order_count}}</view>
+    </view>
+    <view class="input-bar f-15 c-4e bor-b-ec box-slide" bindtap="backPage">
+        厦门修志夫整形美容医院
+    </view>
+    <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+        <view>预约时间</view>
+        <view class="f-15 c-4e">{{orderInfo.reserve_date}}</view>
+    </view>
+    <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+        <view>支付金额</view>
+        <view class="f-15 c-ff523c">￥{{orderInfo.money}}</view>
+    </view>
+</view>
+
+<view class="w-690">
+    <view style="margin:20rpx 0rpx 70rpx 0rpx;" class="f-14 c-a4">订单已生成，请在30分钟内完成支付</view>
+    <button type="primary" size="default" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="primary">确认支付</button>
+</view>

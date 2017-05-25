@@ -1,0 +1,4 @@
+/* pages/benefit/wait-pay/wait-pay.wxss */
+page{
+  background-color: #f4f4f4;
+}

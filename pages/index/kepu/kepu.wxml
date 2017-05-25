@@ -1,0 +1,50 @@
+<!--pages/index/kepu/kepu.wxml跟我学整形-->
+<import src="../../../template/addmore.wxml" />
+<view class="posi-flex bor-b-ec bor-t" style="z-index:99">
+    <block wx:if="{{navType==true}}">
+        <!--类型选择1-->
+        <view class="box-slide">
+        <scroll-view class="nav-bar " scroll-x="true" scroll-left="{{scroll}}">
+            <view wx:for="{{GetProTypeList}}" wx:key="" wx:for-item="item" wx:for-index="idx" id="{{item.id}}" bindtap="navSelset1" data-name="{{item.label_name}}" class="nav-item {{item.id==select?'c-54a8ff f-16 bor-b f-w':'c-4e f-15'}}">{{item.label_name}}</view>
+        </scroll-view>
+        <image bindtap="navChange2" class="img-arrow " src="{{imghost}}arrow-down.png"></image>
+        </view>
+    </block>
+    <block wx:elif="{{navType==false}}">
+        <!--类型选择2-->
+        <view class="box-slide bor-b-ec">
+            <view class="nav-bar">
+                <view class="nav-item f-15 c-4e">栏目切换</view>
+            </view>
+            <image bindtap="navChange1" class="img-arrow" src="{{imghost}}arrow-up.png"></image>
+        </view>
+        <view class="m-t-30">
+            <view wx:for="{{GetProTypeList}}" wx:key="" wx:for-item="item" wx:for-index="idx" data-num="{{idx}}" id="{{item.id}}" bindtap="navSelset2" data-name="{{item.label_name}}" class="nav-item2 {{item.id==select?'c-54a8ff f-15':'c-4e f-14'}}">{{item.label_name}}</view>
+        </view>
+        <view class="masking"></view>
+    </block>
+</view>
+<scroll-view scroll-y="false" style="width:100%;height:{{screenHeight}}px" bindscrolltolower="addmore"> 
+    <!--列表-->
+    <view class="bg-c-ff">
+    <view class="h-90"></view>
+        <view class="w-690">
+            <view wx:for="{{resultData}}" wx:key="" wx:for-item="item">
+                <navigator url="/pages/index/kepu/detail/detail?postiId={{item.id}}&labelId={{item.label_id[0]}}">
+                    <view class="box-slide pd-tb-30 bor-b-ec">
+                        <image class="img-260-180" mode="aspectFill" src="{{item.img_url}}"></image>
+                        <view class="w-410">
+                            <view class="f-15 c-333 lih-22">{{item.title}}</view>
+                            <!--标签显示-->
+                            <view class="box-left m-t-40">
+                                <image class="mark-img" src="{{imghost}}mark.png"></image>
+                                <text wx:for="{{item.label_name}}" wx:key="" wx:item="item" class="f-13 c-54a8ff m-r-30">{{item}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <template is="addmore" data="{{lowerFooter}}"/>
+</scroll-view>

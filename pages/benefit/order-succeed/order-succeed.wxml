@@ -1,0 +1,30 @@
+<!--pages/benefit/order-succeed/order-succeed.wxml-->
+<view wx:if="{{pageOptions.pay_type==1}}" style="height:310rpx;">
+    <image style="width:80rpx;height:98rpx;margin:150rpx auto 50rpx auto" src="{{imghost}}pay-succeed.png"></image>
+    <view class="box-center f-18 c-54a8ff">购买成功</view>
+</view>
+<view style="height:310rpx;" wx:else>
+    <image style="width:80rpx;height:98rpx;margin:150rpx auto 50rpx auto" src="{{imghost}}order-succeed.png"></image>
+    <view class="box-center f-18 c-54a8ff">预约成功</view>
+</view>
+<form bindsubmit="submitForm" report-submit="true">
+    <view class="bg-c-ff">
+        <view class="w-690">
+            <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+                预约商品：{{orderInfo.product_name}}
+            </view>
+            <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+                预约时间：{{orderInfo.reserve_date}}
+            </view>
+            <view class="input-bar f-15 c-4e bor-b-ec box-slide">
+                预 约 码：{{orderInfo.reserve_code}}
+            </view>
+            <view class="input-bar f-15 c-4e box-slide">
+                地     址：福建省厦门市思明区育秀路820号
+            </view>
+        </view>
+    </view>
+    <view class="w-690 pd-tb-30">
+        <button type="primary" size="40" loading = "{{loading}}" formType="submit">完成</button>
+    </view>
+</form>
